@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> ADMINISTRATOR </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+
+<script language="javascript" type="text/javascript">
+/* Visit http://www.yaldex.com/ for full source code
+and get more free JavaScript, CSS and DHTML scripts! */
+<!-- Begin
+function runClock() {
+theTime = window.setTimeout("runClock()", 1000);
+var today = new Date();
+var display= today.toLocaleString();
+window.status=display;
+}
+window.onload=runClock;
+// End -->
+</script>
+<script language='javascript'> 
+function document.onkeydown() 
+{ 
+if ( event.keyCode==116) 
+{ 
+event.keyCode = 0; 
+event.cancelBubble = true; 
+return false; 
+} 
+} 
+</script> 
+</HEAD>
+
+<FRAMESET ROWS="15%,85%" border=0>
+	<FRAME SRC="adminhead.html" NAME="admin1" scrolling=no>
+	<FRAMESET  COLS="27%,73%">
+	<FRAME SRC="adminlinks.html" NAME="admin2">
+	<FRAME SRC="welcome.jsp" NAME="admin3" >
+
+</FRAMESET>
+</FRAMESET>
+</HTML>

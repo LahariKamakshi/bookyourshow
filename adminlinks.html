@@ -1,0 +1,460 @@
+<HTML>
+<BODY BGCOLOR="#99CCFF">
+<style REL="stylesheet" TYPE="text/css">
+A.menu
+  { font-family:Arial,Helvetica; font-weight:bold; color:green; text-decoration:underline; }
+A.menu:hover
+  { font-family:Arial,Helvetica; font-weight:bold; background-color:pink; }
+A.menu:visited, A.menu:active
+  { font-family:Arial,Helvetica; font-weight:bold; color:green; }
+A.submenu
+  { font-family:Arial,Helvetica; color:green; }
+A.submenu:hover
+  { font-family:Arial,Helvetica; background-color:pink; }
+A.submenu:visited, A.submenu:active
+  { font-family:Arial,Helvetica; color:green; }
+
+</style>
+<SCRIPT>
+right_sided=0;                      
+one_open_menu=0;                    
+right_side_margin=10;               
+page_width=140;                     
+top_menu=20;                        
+left_main_menu=10;                  
+left_sub_menu=20;                   
+top_after_sub_menu=25;              
+top_before_sub_menus=25;            
+top_after_sub_menus=30;             
+menu_len=10;                   
+var menucount;
+menucount=new Array(menu_len+1);
+menucount[0]=menu_len;
+
+
+
+menucount[1]=0;               
+menucount[2]=0;
+menucount[3]=0;
+menucount[4]=0;
+menucount[5]=0;
+menucount[6]=0;
+menucount[7]=0;
+menucount[8]=0;
+menucount[9]=0;
+menucount[10]=0;
+
+
+var menu;
+menu=new Array(menucount[0]+1);
+for(i=1;i<=menucount[0];i++)
+  menu[i] = new Array(menucount[i]+1);
+menu[0]=new Array(menucount[0]+1);
+
+menu[1][0]='<A HREF="home.html" target="admin3"><FONT SIZE="3"><B>HOME</B></FONT></A>';
+
+menu[2][0]='<A HREF="changepasswords.jsp" target="admin3"><FONT SIZE="3"><B>CHANGE PASSWORD</A>';
+
+menu[3][0]='<A HREF="users.html" target="admin3"><FONT SIZE="3"><B>USERS</A>';
+
+menu[4][0]='<A HREF="studentdetails.html" target="admin3"><FONT SIZE="3"><B>STUDENTS</A>';
+
+menu[5][0]='<A HREF="bookdetails.html" target="admin3"><FONT SIZE="3"><B>BOOKS</A>';
+
+menu[6][0]='<A HREF="issuedetails.html" target="admin3"><FONT SIZE="3"><B>ISSUE BOOKS</B></FONT></A>';
+
+menu[7][0]='<A HREF="returndetails.html" target="admin3"><FONT SIZE="3"><B>RETURN BOOKS</B></FONT></A>';
+
+menu[8][0]='<A HREF="dept.html" target="admin3"><FONT SIZE="3"><B>DEPARTMENTS</B></FONT></A>';
+
+menu[9][0]='<A HREF="finedetails.html" target="admin3"><FONT SIZE="3"><B>FINES</B></FONT></A>';
+
+menu[10][0]='<A HREF="commit.jsp" target="admin3"><FONT SIZE="3"><B>COMMIT</B></FONT></A>';
+
+
+var timerevent=0;
+var can_redraw=0;
+
+    var agt=navigator.userAgent.toLowerCase();
+
+    var is_major = parseInt(navigator.appVersion);
+    var is_minor = parseFloat(navigator.appVersion);
+
+    var is_nav  = ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('spoofer')==-1)
+                && (agt.indexOf('compatible') == -1) && (agt.indexOf('opera')==-1)
+                && (agt.indexOf('webtv')==-1) && (agt.indexOf('hotjava')==-1));
+    var is_nav2 = (is_nav && (is_major == 2));
+    var is_nav3 = (is_nav && (is_major == 3));
+    var is_nav4 = (is_nav && (is_major == 4));
+    var is_nav4up = (is_nav && (is_major >= 4));
+    var is_navonly      = (is_nav && ((agt.indexOf(";nav") != -1) ||
+                          (agt.indexOf("; nav") != -1)) );
+    var is_nav6 = (is_nav && (is_major == 5));
+    var is_nav6up = (is_nav && (is_major >= 5));
+    var is_gecko = (agt.indexOf('gecko') != -1);
+
+    var is_ie     = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
+    var is_ie3    = (is_ie && (is_major < 4));
+    var is_ie4    = (is_ie && (is_major == 4) && (agt.indexOf("msie 5")==-1) );
+    var is_ie4up  = (is_ie && (is_major >= 4));
+    var is_ie5    = (is_ie && (is_major == 4) && (agt.indexOf("msie 5.0")!=-1) );
+    var is_ie5_5  = (is_ie && (is_major == 4) && (agt.indexOf("msie 5.5") !=-1));
+    var is_ie5up  = (is_ie && !is_ie3 && !is_ie4);
+    var is_ie5_5up =(is_ie && !is_ie3 && !is_ie4 && !is_ie5);
+
+BuildMenu();
+setTimeout('RedrawMenu();',500);
+
+
+function RedrawMenu(menuindex)
+{
+  var layer_top=top_menu;
+  var x1,y1;
+  for(i=1;i<=menucount[0];i++)
+  {
+    if(menu[0][i]+''=='undefined')
+    {
+      menu[0][i]=-1;
+      is_nav4?
+      document.layers['menu'+i].top=top_menu+((i-1)/2)*((i-1)/2)*100:
+      is_ie4?
+      document.all('menu'+i).style.top=top_menu+(((i-1)/2)*((i-1)/2))*100:
+      document.getElementById('menu'+i).style.top=top_menu+(((i-1)/2)*((i-1)/2))*100;
+      if(!right_sided)
+      {
+        is_nav4?
+        document.layers['menu'+i].left=-page_width:
+	is_ie4?
+        document.all('menu'+i).style.left=-page_width:	
+        document.getElementById('menu'+i).style.left=-page_width;
+      }
+      else
+      {
+        is_nav4?
+        document.layers['menu'+i].left=page_width:
+	is_ie4?
+        document.all('menu'+i).style.left=page_width:
+        document.getElementById('menu'+i).style.left=page_width;
+      }
+      is_nav4?
+      document.layers['menu'+i].visibility='show':
+      is_ie4?
+      document.all('menu'+i).style.visibility='visible':
+      document.getElementById('menu'+i).style.visibility='visible';
+      MoveLayer('menu'+i,left_main_menu,layer_top);
+    }
+    else
+    {
+      // SUB menus
+      if((menu[0][i]==1)&&(!one_open_menu||can_redraw==1))
+      {
+        layer_top+=top_before_sub_menus;
+        sub_menu_top=layer_top;
+        add_top=top_before_sub_menus;
+        for(j=1;j<=menucount[i];j++)
+        {
+          // SUB MENU LAYER HEADER
+          if(is_nav4)
+            document.layers['menu'+i+'submenu'+j].top=layer_top;
+          else
+            if(menuindex==i)
+              is_ie4?
+	      document.all('menu'+i+'submenu'+j).style.top=layer_top:
+	      document.getElementById('menu'+i+'submenu'+j).style.top=layer_top;
+
+          // SUB MENU LAYER FOOTER      
+          if(j<menucount[i])
+          {
+            layer_top+=top_after_sub_menu;
+            add_top+=top_after_sub_menu;
+          }
+        }
+
+        if(menuindex==i)
+        {
+          // MOVE MAIN MENUS
+          for(temp0=menucount[0];temp0>i;temp0--)
+          {
+            if(menu[0][temp0]==1)
+              for(temp02=menucount[temp0];temp02>0;temp02--)
+	      {
+                MoveLayer('menu'+temp0+'submenu'+temp02,'undefined',is_nav4?document.layers['menu'+temp0+'submenu'+temp02].top+add_top:net6px(is_ie4?document.all('menu'+temp0+'submenu'+temp02).style.top:document.getElementById('menu'+temp0+'submenu'+temp02).style.top)+add_top);
+	      }
+            MoveLayer('menu'+temp0,'undefined',is_nav4?document.layers['menu'+temp0].top+add_top:net6px(is_ie4?document.all('menu'+temp0).style.top:document.getElementById('menu'+temp0).style.top)+add_top);
+          }
+
+          // BRING SUB MENUS
+          for(j=1;j<=menucount[i];j++)
+          {
+            is_nav4?
+            y2=document.layers['menu'+i+'submenu'+j].top:
+            y2=net6px(is_ie4?document.all('menu'+i+'submenu'+j).style.top:document.getElementById('menu'+i+'submenu'+j).style.top);
+            is_nav4?
+            document.layers['menu'+i+'submenu'+j].top=sub_menu_top+((j-1)/2)*((j-1)/2)*100:
+	    is_ie4?
+            document.all('menu'+i+'submenu'+j).style.top=sub_menu_top+(((j-1)/2)*((j-1)/2))*100:
+            document.getElementById('menu'+i+'submenu'+j).style.top=sub_menu_top+(((j-1)/2)*((j-1)/2))*100;
+            if(!right_sided)
+            {
+              is_nav4?
+              document.layers['menu'+i+'submenu'+j].left=-page_width:
+	      is_ie4?
+              document.all('menu'+i+'submenu'+j).style.left=-page_width:
+              document.getElementById('menu'+i+'submenu'+j).style.left=-page_width;
+            }
+            else
+            {
+              is_nav4?
+              document.layers['menu'+i+'submenu'+j].left=page_width:
+	      is_ie4?
+              document.all('menu'+i+'submenu'+j).style.left=page_width:
+              document.getElementById('menu'+i+'submenu'+j).style.left=page_width;
+            }
+            is_nav4?
+            document.layers['menu'+i+'submenu'+j].visibility='show':
+	    is_ie4?
+            document.all('menu'+i+'submenu'+j).style.visibility='visible':
+            document.getElementById('menu'+i+'submenu'+j).style.visibility='visible';
+            !right_sided?
+            MoveLayer('menu'+i+'submenu'+j,left_sub_menu,y2):
+            MoveLayer('menu'+i+'submenu'+j,left_sub_menu-right_side_margin,y2);
+          }
+        }
+      }
+      else
+      {
+        if(!(one_open_menu&&menuindex==i&&menu[0][menuindex]==1))
+        if(!(one_open_menu&&menuindex!=i&&menu[0][i]==-1))
+        {
+          menu[0][i]=-1;
+          add_top=-top_before_sub_menus;
+          for(j=1;j<=menucount[i];j++)
+          {
+            if((menuindex==i)||(one_open_menu))
+            {
+              if(!right_sided)
+	      {
+                is_ie4?
+		MoveLayer('menu'+i+'submenu'+j,-page_width,layer_top+top_before_sub_menus+((j-1)/2)*((j-1)/2)*100,"document.all('menu"+i+"submenu"+j+"').style.visibility=\"hidden\";"):
+		MoveLayer('menu'+i+'submenu'+j,-page_width,layer_top+top_before_sub_menus+((j-1)/2)*((j-1)/2)*100,"document.getElementById('menu"+i+"submenu"+j+"').style.visibility=\"hidden\";");
+	      }
+	      else
+	      {
+                is_ie4?
+                MoveLayer('menu'+i+'submenu'+j,page_width,layer_top+top_before_sub_menus+((j-1)/2)*((j-1)/2)*100,"document.all('menu"+i+"submenu"+j+"').style.visibility=\"hidden\";"):
+                MoveLayer('menu'+i+'submenu'+j,page_width,layer_top+top_before_sub_menus+((j-1)/2)*((j-1)/2)*100,"document.getElementById('menu"+i+"submenu"+j+"').style.visibility=\"hidden\";");
+	      }
+              if(is_nav4)
+                document.layers['menu'+i+'submenu'+j].visibility="hide";
+            }
+
+            if(j<menucount[i])
+            {
+              add_top-=top_after_sub_menu;
+            }
+          }
+
+          // MOVE MAIN MENUS
+          if(menuindex==i||one_open_menu)
+            for(temp0=i+1;temp0<=menucount[0];temp0++)
+            {
+              MoveLayer('menu'+temp0,'undefined',is_nav4?document.layers['menu'+temp0].top+add_top:net6px(is_ie4?document.all('menu'+temp0).style.top:document.getElementById('menu'+temp0).style.top)+add_top);
+              if(menu[0][temp0]==1)
+                for(temp02=1;temp02<=menucount[temp0];temp02++)
+                  MoveLayer('menu'+temp0+'submenu'+temp02,'undefined',is_nav4?document.layers['menu'+temp0+'submenu'+temp02].top+add_top:net6px(is_ie4?document.all('menu'+temp0+'submenu'+temp02).style.top:document.getElementById('menu'+temp0+'submenu'+temp02).style.top)+add_top);
+            }
+        }
+      }
+    }
+    layer_top+=top_after_sub_menus;
+  }
+
+  // OPEN ONE MENU
+  if(one_open_menu&&menu[0][menuindex]==1)
+  {
+    if(can_redraw==1)
+      can_redraw=0;
+    else
+    {
+      can_redraw=1;
+      timerevent+=10;
+      setTimeout('RedrawMenu('+menuindex+'); timerevent-=10;',timerevent);
+    }
+  }
+}
+
+function BuildMenu()
+{
+  var layer_top=top_menu;
+  for(i=1;i<=menucount[0];i++)
+  {
+    // MAIN MENU LAYER HEADER
+    is_nav4?
+    document.writeln('<LAYER ID="menu'+i+'" VISIBILITY="hide" TOP='+layer_top+' LEFT='+left_main_menu+' WIDTH='+(page_width-left_main_menu-right_side_margin)+'>'):
+    document.writeln('<DIV ID="menu'+i+'" BORDER=1 STYLE="visibility:hidden;position:absolute;top:'+layer_top+'px;left:'+left_main_menu+'px;">');
+
+    if(right_sided)
+    {
+      is_nav4?
+      document.writeln('<DIV ALIGN="right">'):
+      document.writeln('<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH="'+(page_width-left_main_menu-right_side_margin)+'px"><TR><TD ALIGN="right">');
+    }
+
+    // MAIN MENU LAYER BODY
+    if(menucount[i]>0)
+    {
+      is_ie4up||is_nav6up?
+      document.write('<A HREF="javascript:open_close_sub_menus('+i+');" CLASS="menu" onMouseOver="setTimeout(\'self.status=\\\''+menu[i][0]+'\\\';\',1);" onMouseOut="self.status=\'\';">'):
+      document.write('<A HREF="javascript:open_close_sub_menus('+i+');" CLASS="menu" onMouseOver="self.status=\''+menu[i][0]+'\'; return true;" onMouseOut="self.status=\'\'; return true;">');
+    }
+    document.write(menu[i][0]);
+    if(menucount[i]>0)
+      document.write('</A>');
+    document.writeln();
+
+    // MAIN MENU LAYER FOOTER
+    if(right_sided)
+    {
+      is_nav4?
+      document.writeln('</DIV>'):
+      document.writeln('</TD></TR></TABLE>');
+    }
+
+    is_nav4?
+    document.writeln('</LAYER>'):
+    document.writeln('</DIV>');
+
+    // SUB MENUS
+    for(j=1;j<=menucount[i];j++)
+    {
+      // SUB MENU LAYER HEADER
+      is_nav4?
+      document.writeln('<LAYER ID="menu'+i+'submenu'+j+'" VISIBILITY="hide" TOP='+layer_top+' LEFT='+left_sub_menu+' WIDTH='+(page_width-left_sub_menu-right_side_margin)+'>'):
+      document.writeln('<DIV ID="menu'+i+'submenu'+j+'" STYLE="visibility:hidden;position:absolute;top:'+layer_top+'px;left:'+left_sub_menu+'px;">');
+
+      if(right_sided)
+      {
+	is_nav4?
+        document.writeln('<DIV ALIGN="right">'):
+        document.writeln('<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH="'+(page_width-left_sub_menu-right_side_margin)+'px"><TR><TD ALIGN="right">');
+      }
+
+      // SUB MENU LAYER BODY
+      document.writeln(menu[i][j]+'<BR>');
+
+      // SUB MENU LAYER FOOTER
+      if(right_sided)
+      {
+	is_nav4?
+        document.writeln('</DIV>'):
+        document.writeln('</TD></TR></TABLE>');
+      }
+
+      is_nav4?
+      document.writeln('</LAYER>'):
+      document.writeln('</DIV>');
+    }
+    layer_top+=top_after_sub_menus;
+  }
+}
+
+function MoveLayer(layer_name,left,top,after_move_action)
+{
+  var dont_move=0;
+  index_menu=layer_name.indexOf("menu");
+  index_submenu=layer_name.indexOf("submenu");
+  name_length=layer_name.length;
+  if(index_menu==0)
+  {
+    if(index_submenu!=-1)
+    {
+      if(menu[layer_name.substr(index_menu+4,index_submenu-4)][layer_name.substr(index_submenu+7,name_length)]=="")
+        dont_move=1;
+    }
+    else
+    {
+      if(menu[layer_name.substr(index_menu+4,name_length)][0]=="")
+        dont_move=1;
+    }
+  }
+  if(dont_move!=1)
+  {
+    layer=is_nav4?document.layers[layer_name]:is_ie4?document.all(layer_name):document.getElementById(layer_name);
+    x1=is_nav4?document.layers[layer_name].left:eval(is_ie4?document.all(layer_name).style.pixelLeft:document.getElementById(layer_name).style.pixelLeft);
+    y1=is_nav4?document.layers[layer_name].top:eval(is_ie4?document.all(layer_name).style.pixelTop:document.getElementById(layer_name).style.pixelTop);
+    if(left+''=='undefined')
+      left=x1;
+    if(top+''=='undefined')
+      left=y1;
+    // Netscape 6:
+    if(x1+''=='undefined')
+      x1=net6px(is_ie4?document.all(layer_name).style.left:document.getElementById(layer_name).style.left);
+    if(y1+''=='undefined')
+      y1=net6px(is_ie4?document.all(layer_name).style.top:document.getElementById(layer_name).style.top);
+    x2=left;
+    y2=top;
+    speed=30;
+    if(is_nav4) waitspeed=Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2))/110*50;
+    for(temp=0;temp<speed;temp++)
+    {
+      // MOVE ACTION
+      if(is_nav4)
+      {
+        layer.left=x1-(x1-x2)/speed*temp;
+        layer.top=y1-(y1-y2)/speed*temp;
+        for(temp2=0;temp2<waitspeed*5;temp2++);
+      }
+      else
+      {
+        timerevent+=10;
+	is_ie4?
+        setTimeout('document.all(\''+layer_name+'\').style.left='+(x1-(x1-x2)/speed*temp)+'; document.all(\''+layer_name+'\').style.top='+(y1-(y1-y2)/speed*temp)+'; timerevent-=10;',timerevent):
+        setTimeout('document.getElementById(\''+layer_name+'\').style.left='+(x1-(x1-x2)/speed*temp)+'; document.getElementById(\''+layer_name+'\').style.top='+(y1-(y1-y2)/speed*temp)+'; timerevent-=10;',timerevent);
+      }
+    }
+
+    if(is_nav4)
+    {
+      layer.left=x2;
+      layer.top=y2;
+    }
+    else
+    {
+      timerevent+=10;
+      is_ie4?
+      setTimeout('document.all(\''+layer_name+'\').style.left='+x2+'; document.all(\''+layer_name+'\').style.top='+y2+'; timerevent-=10;',timerevent):
+      setTimeout('document.getElementById(\''+layer_name+'\').style.left='+x2+'; document.getElementById(\''+layer_name+'\').style.top='+y2+'; timerevent-=10;',timerevent);
+
+      if(after_move_action)
+      {
+        timerevent+=10;
+        setTimeout(after_move_action+" timerevent-=10;",timerevent);
+      }
+    }
+  }
+}
+
+function open_close_sub_menus(menuindex)
+{
+  timerevent+=10;
+  setTimeout("open_close_sub_menus_call("+menuindex+"); timerevent-=10;",timerevent);
+}
+
+function open_close_sub_menus_call(menuindex)
+{
+  menu[0][menuindex]==-1?menu[0][menuindex]=1:menu[0][menuindex]=-1;
+  RedrawMenu(menuindex);
+}
+
+function net6px(value)
+{
+  var text=value;
+  var length=text.length;
+  var retval=text.substr(0,length-2);
+  retval=retval*1;
+  return retval;
+}
+
+</SCRIPT>
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<html>
+<head>
+	<title>ADMIN LOGIN</title>
+</head>
+
+<body style="margin: 10px 10px 10px 10px" bgcolor="#99FFFF" onload="document.testform.uname.focus()">
+	<CENTER><FONT SIZE="6" COLOR=""><B>LOGIN</B></FONT>
+	<table >
+        <tr >
+            <td>
+                <form name="testform" method="post" action="login.jsp" onSubmit="return validateStandard(this, 'error');" >
+                <table border="20" BORDERCOLOR="#FF00FF">
+                    <tr bordercolor="#660000" >
+                        <td class="mandatory"><FONT SIZE="4" COLOR=""> <B>USER ID</FONT></td>
+                        <td><input type="text" name="uname" id="name" required="1" regexp="/^\w*$/" realname="Username" onKeyPress="return checkIt(event)" maxlength="6" size="15"></td>
+                        
+                    </tr>
+                    <tr bordercolor="#660000">
+                        <td class="mandatory"><FONT SIZE="4" COLOR=""> <B>PASSWORD</FONT></td>
+                        <td><input type="password" name="passwd" id="password" required="1" minlength="3" maxlength="8" size="15"></td>
+                       
+                    </tr>
+                    <tr>
+                       <td class="mandatory"><FONT SIZE="4" COLOR=""> <B>DESIGNATION</FONT></td>
+                        <TD>&nbsp;<B><FONT SIZE="2" COLOR="">ADMINISTRATOR</FONT></B><INPUT TYPE="hidden" value="administrator" name="desig"></TD>
+                    </tr>
+                    <tr bordercolor="#FFFFFF">
+                        <td>&nbsp;</td>
+                        <td size="0"><input type="submit" value="SUBMIT"></td>
+                    </tr>
+                </table>
+				<center><A HREF="index.html" target="_parent"><B><FONT SIZE="4" COLOR=""><IMG SRC="pic/home.jpg" WIDTH="70" HEIGHT="24" BORDER=0 ALT="BACK"></FONT></B></A>
+                </form>
+
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+           
+       
